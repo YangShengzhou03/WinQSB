@@ -25,6 +25,5 @@ class CheckVCRuntimesThread(QThread):
                     return True
             return False
 
-        except Exception as e:
-            print(f"Error: {e}")
+        except Exception:
             return False

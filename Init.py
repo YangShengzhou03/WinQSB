@@ -3,7 +3,7 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 from bs4 import BeautifulSoup
 
 from Ui_NoticeDialog import Ui_NoticeDialog
-from src.Common import get_resource_path
+from Common import get_resource_path
 
 key_value = None
 

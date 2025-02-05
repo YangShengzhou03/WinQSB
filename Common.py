@@ -17,12 +17,12 @@ def load_stylesheet(filename):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     except FileNotFoundError:
-        return f"文件 {filename} 未找到。"
+        return 0
 
 
 def get_resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.path.abspath("")
+        base_path = os.path.abspath(os.path.dirname(__file__))
     return os.path.join(base_path, relative_path).replace(os.sep, '/')

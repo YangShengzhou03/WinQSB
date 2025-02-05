@@ -183,10 +183,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
 
         key_versions = {
-            hex(self.uuid + 1)[2:].upper(): ('无售后版', 90),
-            hex(self.uuid + 2)[2:].upper(): ('学生版', 180),
+            hex(self.uuid + 1)[2:].upper(): ('极致性价比', 90),
+            hex(self.uuid + 2)[2:].upper(): ('学生专享版', 180),
             hex(self.uuid + 3)[2:].upper(): ('永久使用版', None),
-            hex(self.uuid + 4)[2:].upper(): ('买一送一永久版', None)
+            hex(self.uuid + 4)[2:].upper(): ('双份永久版', None)
         }
 
         version_info = key_versions.get(entered_key.upper()) or (entered_key == Init.get_key())
@@ -274,7 +274,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def copy_folder_and_run_programs(self):
         global app
         app = app or QApplication(sys.argv)
-        source_folder = get_resource_path('../WINQSB')
+        source_folder = get_resource_path('WINQSB')
         destination_folder = 'C:\\WINQSB'
         install_ink_path = 'C:\\WINQSB\X64_YSZ_WinQSB2.0/Primary.lnk'
         yszb_exe_path = 'C:\\WINQSB\X64_YSZ_WinQSB2.0/SETUP.exe'

@@ -5,9 +5,7 @@ from PyQt6.QtWidgets import QApplication
 
 from MainWindow import MainWindow
 
-"""
-pyinstaller --onefile -w --icon=resources/img/logo.ico --add-data "WINQSB;WINQSB" --add-data "resources;resources" --version-file=WinQSB_version_info.txt Application.py
-"""
+"""pyinstaller Application.spec"""
 
 
 def main():
