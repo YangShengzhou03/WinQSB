@@ -1,0 +1,137 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/  # 排除 __pycache__ 目录及其所有内容
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+/build/  # 排除 build 目录及其所有内容
+/develop-eggs/
+/dist/  # 排除 dist 目录及其所有内容
+/downloads/
+/eggs/
+.eggs/
+/lib/
+/lib64/
+/parts/
+/sdist/
+/var/
+/wheels/
+/share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+# Ignore the output directory and build artifacts
+/dist/
+/build/
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+/htmlcov/  # 排除 htmlcov 目录及其所有内容
+/.tox/  # 排除 .tox 目录及其所有内容
+/.nox/  # 排除 .nox 目录及其所有内容
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+/.hypothesis/  # 排除 .hypothesis 目录及其所有内容
+/.pytest_cache/  # 排除 .pytest_cache 目录及其所有内容
+pytestdebug.log
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+/instance/  # 排除 instance 目录及其所有内容
+/webassets-cache/
+
+# Scrapy stuff:
+/.scrapy/  # 排除 .scrapy 目录及其所有内容
+
+# Sphinx documentation
+/docs/_build/  # 排除 docs/_build 目录及其所有内容
+
+# PyBuilder
+/target/  # 排除 target 目录及其所有内容
+
+# Jupyter Notebook
+/.ipynb_checkpoints/  # 排除 .ipynb_checkpoints 目录及其所有内容
+
+# IPython
+/profile_default/  # 排除 profile_default 目录及其所有内容
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+# According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+# However, in case of collaboration, if having platform-specific dependencies or dependencies
+# having no cross-platform support, pipenv may install dependencies that don't work, or not
+# install at all, so it might be better to exclude Pipfile.lock.
+Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+/env/
+/venv/
+ENV/
+/env.bak/
+/venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Git internal folders
+.git/
+
+# JetBrains IDEs (IntelliJ IDEA, PyCharm, etc.)
+.idea/  # 排除 .idea 目录及其所有内容
+
+# PyInstaller output directory and build artifacts
+/dist/
+/build/
+*.spec

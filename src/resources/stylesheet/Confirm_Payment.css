@@ -1,0 +1,30 @@
+QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0,
+        x2: 1, y2: 0,
+        stop: 0 rgb(128, 94, 62),
+        stop: 1 rgb(128, 94, 162)
+    );
+    color: rgb(255, 255, 255);
+    border-radius: 4px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+QPushButton:hover {
+    background-color: qlineargradient(
+        x1: 0, y1: 0,
+        x2: 1, y2: 0,
+        stop: 0 rgb(178, 144, 122),
+        stop: 1 rgb(178, 144, 212)
+    );
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(
+        x1: 0, y1: 0,
+        x2: 1, y2: 0,
+        stop: 0 rgb(98, 74, 42),
+        stop: 1 rgb(98, 74, 142)
+    );
+    transform: translateY(2px);
+}
