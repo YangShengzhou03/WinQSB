@@ -18,7 +18,7 @@ VSVersionInfo(
          StringStruct('FileDescription', '64位WinQSB安装程序'),
          StringStruct('FileVersion', '4.7.0.0'),
          StringStruct('InternalName', '64位WinQSB安装程序'),
-         StringStruct('LegalCopyright', 'Copyright © 2024 YangShengzhou 版权所有'),
+         StringStruct('LegalCopyright', 'Copyright © 2025 YangShengzhou 版权所有'),
          StringStruct('OriginalFilename', 'WinQSB_4.7_x64.exe'),
          StringStruct('ProductName', '64位WinQSB安装程序'),
          StringStruct('ProductVersion', '4.7.0.0')])
