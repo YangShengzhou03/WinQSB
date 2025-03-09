@@ -1,21 +1,23 @@
+import configparser
 import os
 import random
 import shutil
 import subprocess
 import sys
 import time
+from datetime import datetime, timedelta
 
 from PyQt6 import QtCore, QtWidgets, QtGui
-from PyQt6.QtCore import Qt, QRegularExpression
-from PyQt6.QtGui import QMovie, QFont, QRegularExpressionValidator
+from PyQt6.QtCore import Qt, QRegularExpression, QUrl
+from PyQt6.QtGui import QMovie, QFont, QRegularExpressionValidator, QDesktopServices
 from PyQt6.QtWidgets import QApplication, QMessageBox, QFrame, QHBoxLayout, QWidget
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 import Init
 from CheckVCRuntimesThread import CheckVCRuntimesThread
-from Ui_MainWindow import Ui_MainWindow
-from Common import load_stylesheet, get_resource_path, open_reading
+from Common import load_stylesheet, get_resource_path
 from Init import visit_notice_url
+from Ui_MainWindow import Ui_MainWindow
 
 app = None
 UUID = random.randint(100000, 999999)
@@ -30,175 +32,214 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.QQ_display = False
-        self.connect_signal()
-        self.elements_init()
+        self.connect_signals()
+        self.A()
 
-    def connect_signal(self):
-        self.pushButton_close_5.clicked.connect(self.close_exit)
-        self.pushButton_P4.clicked.connect(self.price_4)
-        self.pushButton_P6.clicked.connect(self.price_6)
-        self.pushButton_P16.clicked.connect(self.price_16)
-        self.pushButton_P19.clicked.connect(self.price_19)
-        self.pushButton_OK.clicked.connect(self.check_key)
-        self.lineEdit_PIN.returnPressed.connect(self.check_key)
-        self.pushButton_bought_2.clicked.connect(self.bought)
-        self.pushButton_bought.clicked.connect(self.bought)
-        self.pushButton_yuancheng.clicked.connect(self.bought)
-        self.pushButton_tuikuan.clicked.connect(self.bought)
-        self.pushButton_jiaocheng.clicked.connect(open_reading)
+    def connect_signals(self):
+        self.pushButton_close.clicked.connect(self.close)
+        self.pushButton_A.clicked.connect(self.A)
+        self.pushButton_B.clicked.connect(self.B)
+        self.pushButton_C.clicked.connect(self.C)
+        self.pushButton_D.clicked.connect(self.D)
+        reg_exp = QRegularExpression(r'^[A-Za-z0-9]{0,12}$')
+        validator = QRegularExpressionValidator(reg_exp, self.lineEdit_code)
+        self.lineEdit_code.setValidator(validator)
+        self.lineEdit_code.returnPressed.connect(self.validate_activation)
+        self.pushButton_OK.clicked.connect(self.validate_activation)
+        self.lineEdit_code.textChanged.connect(lambda text: self.lineEdit_code.setText(text.upper()))
+        self.label_identify.setText(str(UUID))
+        self.pushButton_exchange.clicked.connect(self.QQ_code)
+        self.pushButton_check.clicked.connect(self.QQ_code)
+        self.pushButton_feedback.clicked.connect(self.QQ_code)
+        self.pushButton_privilege.clicked.connect(self.help)
+        self.apply_default_styles()
 
-    def close_exit(self):
-        sys.exit(0)
-
-    def price_4(self):
+    def QQ_code(self):
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/4.9-click.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P4.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/6.9-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P6.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/16.7-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P16.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/19.8-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P19.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/4.9.jpg')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_QRcode.setIcon(icon)
-        self.label_Price.setText("<html><head/><body><p align=\"center\"><span style=\" "
-                                 "font-size:18pt;\">￥</span><span style=\" "
-                                 "font-size:28pt;\">4.9</span></p></body></html>")
-        self.label_Produce.setText("极致性价比，畅享3个月，安装成功后无任何服务")
-        self.pushButton_bought_2.setText('我已购买')
-        self.pushButton_bought_2.setStyleSheet(load_stylesheet("Confirm_Payment.css"))
+        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/ui/QQ_Act.png')),
+                       QtGui.QIcon.Mode.Normal,
+                       QtGui.QIcon.State.Off)
+        self.pushButton_Wechat.setIcon(icon)
+        self.apply_default_styles()
 
-    def price_6(self):
+    def apply_default_styles(self):
+        default_style = """
+QPushButton {
+    margin-right: 3px;
+    margin-bottom: 0px;
+    color: rgb(255, 255, 255);
+    border: 2px solid rgba(120, 120, 120, 60);
+    border-radius: 8px;
+    background: none;
+    font-weight: bold;
+    padding: 8px;
+}
+
+QPushButton:hover {
+    border: 2px solid rgba(254, 81, 111, 120);
+    background: qlineargradient(
+        spread:pad,
+        x1:0.5, y1:1, x2:0.5, y2:0,
+        stop:0 rgba(0, 0, 0, 0),
+        stop:1 rgba(255, 153, 170, 88)
+    );
+    transition: background 0.2s ease-in-out;
+}
+
+QPushButton:pressed {
+    border: 2px solid rgba(254, 81, 111, 255);
+    background: qlineargradient(
+        spread:pad,
+        x1:0.5, y1:1, x2:0.5, y2:0,
+        stop:0 rgba(0, 0, 0, 0),
+        stop:1 rgba(255, 153, 170, 88)
+    );
+    transition: background 0.1s ease-in-out;
+}
+"""
+        for button in [self.pushButton_A, self.pushButton_B, self.pushButton_C,
+                       self.pushButton_D]:
+            button.setStyleSheet(default_style)
+
+    def update_button_style(self, button):
+        active_style = """
+QPushButton {
+    margin-right: 3px;
+    margin-bottom: 0px;
+    color: rgb(255, 255, 255);
+    border: 2px solid rgba(254, 81, 111, 120);
+    border-radius: 8px;
+    background: qlineargradient(
+        spread:pad,
+        x1:0.5, y1:1, x2:0.5, y2:0,
+        stop:0 rgba(0, 0, 0, 0),
+        stop:1 rgba(255, 153, 170, 88)
+    );
+    font-weight: bold;
+    padding: 8px;
+}
+
+QPushButton:hover {
+    border: 2px solid rgba(254, 81, 111, 120);
+    background: qlineargradient(
+        spread:pad,
+        x1:0.5, y1:1, x2:0.5, y2:0,
+        stop:0 rgba(0, 0, 0, 0),
+        stop:1 rgba(255, 153, 170, 88)
+    );
+    transition: background 0.2s ease-in-out;
+}
+
+QPushButton:pressed {
+    border: 2px solid rgba(254, 81, 111, 255);
+    background: qlineargradient(
+        spread:pad,
+        x1:0.5, y1:1, x2:0.5, y2:0,
+        stop:0 rgba(0, 0, 0, 0),
+        stop:1 rgba(255, 153, 170, 88)
+    );
+    transition: background 0.1s ease-in-out;
+}
+"""
+
+        self.apply_default_styles()
+        button.setStyleSheet(active_style)
+        self.current_selected_button = button
+
+    def A(self):
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/4.9-UNclick.png')),
+        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/wp/wp99.jpg')),
                        QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P4.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/6.9-click.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P6.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/16.7-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P16.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/19.8-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P19.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/6.9.jpg')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_QRcode.setIcon(icon)
-        self.label_Price.setText("<html><head/><body><p align=\"center\"><span style=\" "
-                                 "font-size:18pt;\">￥</span><span style=\" "
-                                 "font-size:28pt;\">6.9</span></p></body></html>")
-        self.label_Produce.setText("可用6个月，同一设备该WinQSB提供6个月售后支持")
-        self.pushButton_bought_2.setText('我已购买')
-        self.pushButton_bought_2.setStyleSheet(load_stylesheet("Confirm_Payment.css"))
+        self.pushButton_Wechat.setIcon(icon)
+        self.update_button_style(self.pushButton_A)
+        self.label_prices.setText("99.00")
+        self.label_prices_2.setText("99.0")
 
-    def price_16(self):
+    def B(self):
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/4.9-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P4.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/6.9-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P6.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/16.7-click.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P16.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/19.8-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P19.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/16.7.jpg')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_QRcode.setIcon(icon)
-        self.label_Price.setText("<html><head/><body><p align=\"center\"><span style=\" "
-                                 "font-size:18pt;\">￥</span><span style=\" "
-                                 "font-size:28pt;\">16.7</span></p></body></html>")
-        self.label_Produce.setText("长期使用，同一设备该WinQSB提供永久售后支持")
-        self.pushButton_bought_2.setText('我已购买')
-        self.pushButton_bought_2.setStyleSheet(load_stylesheet("Confirm_Payment.css"))
+        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/wp/wp16.9.jpg')), QtGui.QIcon.Mode.Normal,
+                       QtGui.QIcon.State.Off)
+        self.pushButton_Wechat.setIcon(icon)
+        self.update_button_style(self.pushButton_B)
+        self.label_prices.setText("16.90")
+        self.label_prices_2.setText("16.9")
 
-    def price_19(self):
+    def C(self):
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/4.9-UNclick.png')),
+        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/wp/wp9.9.jpg')),
                        QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P4.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/6.9-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P6.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/16.7-UNclick.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P16.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/19.8-click.png')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_P19.setIcon(icon)
-        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/19.8.jpg')),
-                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_QRcode.setIcon(icon)
-        self.label_Price.setText("<html><head/><body><p align=\"center\"><span style=\" "
-                                 "font-size:18pt;\">￥</span><span style=\" "
-                                 "font-size:28pt;\">19.8</span></p></body></html>")
-        self.label_Produce.setText("买一送一，可为两台电脑安装，同一设备该WinQSB均享永久售后支持")
-        self.pushButton_bought_2.setText('我已购买')
-        self.pushButton_bought_2.setStyleSheet(load_stylesheet("Confirm_Payment.css"))
+        self.pushButton_Wechat.setIcon(icon)
+        self.update_button_style(self.pushButton_C)
+        self.label_prices.setText("9.90")
+        self.label_prices_2.setText("9.9")
 
-    def bought(self):
+    def D(self):
         icon = QtGui.QIcon()
-        if self.QQ_display:
-            self.QQ_display = False
-            icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/price/19.8.jpg')),
-                           QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-            self.pushButton_bought_2.setText('我已购买')
-            self.pushButton_bought_2.setStyleSheet(load_stylesheet("Confirm_Payment.css"))
-            self.label_tips.setText("<html><head/><body><p align=\"center\">如已支付请点击 我已购买</p></body></html>")
-        else:
-            self.QQ_display = True
-            icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/ui/QQ_QR_code.png')),
-                           QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-            self.pushButton_bought_2.setText('QQ扫码领取秘钥')
-            self.pushButton_bought_2.setStyleSheet(load_stylesheet("Get_the_key.css"))
-            self.label_tips.setText("<html><head/><body><p align=\"center\">QQ扫码提供秘钥和安装服务</p></body></html>")
-        self.pushButton_QRcode.setIcon(icon)
+        icon.addPixmap(QtGui.QPixmap(get_resource_path('resources/img/wp/wp7.9.jpg')),
+                       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.pushButton_Wechat.setIcon(icon)
+        self.update_button_style(self.pushButton_D)
+        self.label_prices.setText("7.90")
+        self.label_prices_2.setText("7.9")
 
-    def elements_init(self):
+    def help(self):
+        QDesktopServices.openUrl(QUrl('https://blog.csdn.net/Yang_shengzhou/article/details/142312570'))
+
+    def validate_activation(self):
         global UUID
-        self.label_identfy.setText(f"<html><head/><body><p align=\"center\">{UUID}</p></body></html>")
-        self.lineEdit_PIN.textChanged.connect(lambda text: self.lineEdit_PIN.setText(text.upper()))
-        reg_exp = QRegularExpression(r'^[A-Za-z0-9]{0,8}$')
-        validator = QRegularExpressionValidator(reg_exp, self.lineEdit_PIN)
-        self.lineEdit_PIN.setValidator(validator)
-
-    def check_key(self):
-        global UUID
-        entered_key = self.lineEdit_PIN.text()
+        entered_key = self.lineEdit_code.text()
         self.uuid = UUID
 
         if not entered_key:
-            self.label_error.setText('请输入安装秘钥')
-            self.label_error.setVisible(True)
+            QtWidgets.QMessageBox.warning(self, "输入为空", "输入为空！请输入秘钥，如已购买请QQ扫获取")
             return
 
         key_versions = {
-            hex(self.uuid + 1)[2:].upper(): ('极致性价比', 90),
-            hex(self.uuid + 2)[2:].upper(): ('学生专享版', 180),
-            hex(self.uuid + 3)[2:].upper(): ('永久使用版', None),
-            hex(self.uuid + 4)[2:].upper(): ('双份永久版', None)
+            hex(self.uuid + 1)[2:].upper(): ('1个月试用', 31),
+            hex(self.uuid + 2)[2:].upper(): ('学生6月专享', 180),
+            hex(self.uuid + 3)[2:].upper(): ('包年畅享', 365),
+            hex(self.uuid + 4)[2:].upper(): ('永久尊享', None)
         }
 
-        version_info = key_versions.get(entered_key.upper()) or (entered_key == Init.get_key())
+        version_info = key_versions.get(entered_key.upper())
+
+        if version_info is None and entered_key == Init.get_key():
+            version_info = ('1个月试用', 31)
 
         if not version_info:
-            self.label_error.setText('无效的安装秘钥')
-            self.label_error.setVisible(True)
+            QtWidgets.QMessageBox.warning(self, "无效秘钥", "秘钥有误！请输入正确的秘钥，如已购买请QQ扫获取")
             return
 
-        self.label_error.setVisible(False)
+        if version_info[1] is not None:
+            expire_date = (datetime.now() + timedelta(days=version_info[1])).strftime("%Y-%m-%d")
+            self.create_system_info_file(expire_date)
+        else:
+            expire_date = "永久"
+
+        QtWidgets.QMessageBox.information(
+            self,
+            "秘钥验证成功",
+            f"感谢您选择WinQSB {version_info[0]}，将于 {expire_date} 到期。"
+        )
+
         self.close()
         self.wait_dialog()
+
+    def create_system_info_file(self, expiry_time):
+        folder_path = r"C:\WINQSB\X64_YSZ_WinQSB2.0\essential_flies"
+        file_name = "system-info.ini"
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        file_path = os.path.join(folder_path, file_name)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        config = configparser.ConfigParser()
+        config['System'] = {'ExpiryTime': expiry_time}
+        with open(file_path, 'w') as configfile:
+            config.write(configfile)
+        startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
+        shutil.copy2(get_resource_path('resources/qsb.exe'),
+                     startup_folder)
 
     def wait_dialog(self):
         dialog = QDialog(self)
@@ -281,8 +322,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         try:
             if not os.path.exists(source_folder):
                 raise FileNotFoundError(f"源文件夹 {source_folder} 不存在。")
-            if os.path.exists(destination_folder):
-                shutil.rmtree(destination_folder)
             shutil.copytree(source_folder, destination_folder, dirs_exist_ok=True)
             if not os.path.exists(destination_folder):
                 raise FileNotFoundError(f"未能将文件夹复制到 {destination_folder}。")
