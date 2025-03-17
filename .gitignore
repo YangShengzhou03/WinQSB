@@ -27,7 +27,6 @@ MANIFEST
 # Ignore the output directory and build artifacts
 /dist/
 /build/
-*.spec
 
 # Installer logs
 pip-log.txt
@@ -130,8 +129,3 @@ dmypy.json
 
 # JetBrains IDEs (IntelliJ IDEA, PyCharm, etc.)
 .idea/  # 排除 .idea 目录及其所有内容
-
-# PyInstaller output directory and build artifacts
-/dist/
-/build/
-*.spec
