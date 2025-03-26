@@ -8,6 +8,8 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 
+from Common import get_resource_path
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -96,7 +98,7 @@ class Ui_MainWindow(object):
 "    color: rgb(32, 32, 32);\n"
 "}")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("resources/img/ui/兑换激活码.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/ui/兑换激活码.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_exchange.setIcon(icon)
         self.pushButton_exchange.setIconSize(QtCore.QSize(18, 18))
         self.pushButton_exchange.setObjectName("pushButton_exchange")
@@ -119,7 +121,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_close.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("resources/img/ui/窗口控制-关闭.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/ui/窗口控制-关闭.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_close.setIcon(icon1)
         self.pushButton_close.setIconSize(QtCore.QSize(16, 16))
         self.pushButton_close.setObjectName("pushButton_close")
@@ -235,7 +237,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_A.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("resources/img/Prices/A.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/Prices/A.png")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_A.setIcon(icon2)
         self.pushButton_A.setIconSize(QtCore.QSize(140, 140))
         self.pushButton_A.setObjectName("pushButton_A")
@@ -277,7 +279,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_B.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("resources/img/Prices/B.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon3.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/Prices/B.png")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_B.setIcon(icon3)
         self.pushButton_B.setIconSize(QtCore.QSize(140, 140))
         self.pushButton_B.setObjectName("pushButton_B")
@@ -319,7 +321,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_C.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("resources/img/Prices/C.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon4.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/Prices/C.png")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_C.setIcon(icon4)
         self.pushButton_C.setIconSize(QtCore.QSize(140, 140))
         self.pushButton_C.setObjectName("pushButton_C")
@@ -361,7 +363,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_D.setText("")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("resources/img/Prices/D.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon5.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/Prices/D.png")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_D.setIcon(icon5)
         self.pushButton_D.setIconSize(QtCore.QSize(140, 140))
         self.pushButton_D.setObjectName("pushButton_D")
@@ -422,7 +424,7 @@ class Ui_MainWindow(object):
         self.widget_head.setMaximumSize(QtCore.QSize(650, 16777215))
         self.widget_head.setStyleSheet("QWidget {\n"
 "border-radius: 0px;\n"
-"image: url(\'resources/img/ui/head.png\');\n"
+f"image: url({get_resource_path('resources/img/ui/head.png')});\n"
 "background: transparent;\n"
 "}")
         self.widget_head.setObjectName("widget_head")
@@ -490,7 +492,7 @@ class Ui_MainWindow(object):
         self.widget_bottom.setMaximumSize(QtCore.QSize(650, 16777215))
         self.widget_bottom.setStyleSheet("QWidget {\n"
 "    border-radius: 12px;\n"
-"image: url(\'resources/img/ui/bottom.png\');\n"
+f"image: url({get_resource_path('resources/img/ui/bottom.png')});\n"
 "background: transparent;\n"
 "}")
         self.widget_bottom.setObjectName("widget_bottom")
@@ -561,7 +563,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_Wechat.setText("")
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("resources/img/wp/wp99.jpg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon6.addPixmap(QtGui.QPixmap(get_resource_path("resources/img/wp/wp99.jpg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton_Wechat.setIcon(icon6)
         self.pushButton_Wechat.setIconSize(QtCore.QSize(130, 130))
         self.pushButton_Wechat.setObjectName("pushButton_Wechat")
