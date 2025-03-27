@@ -16,7 +16,6 @@ a = Analysis(
     runtime_hooks=[],
     excludes=[],
     noarchive=False,
-    optimize=0,
 )
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
@@ -41,5 +40,6 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     version='WinQSB_version_info.txt',
-    icon=['resources\\img\\ui\\icon.ico']
+    icon=['resources\\img\\ui\\icon.ico'],
+    optimize=0,
 )
