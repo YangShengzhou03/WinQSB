@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="260c75ea-76a3-4de9-822d-9545aae8a195" name="Changes" comment="change to support win7">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application.spec" beforeDir="false" afterPath="$PROJECT_DIR$/Application.spec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui_MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_MainWindow.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743085724900</updated>
       <workItem from="1743085725990" duration="260000" />
-      <workItem from="1743085996425" duration="4310000" />
+      <workItem from="1743085996425" duration="4465000" />
     </task>
     <task id="LOCAL-00001" summary="change to support win7">
       <option name="closed" value="true" />
@@ -113,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743090105031</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="change to support win7">
+      <option name="closed" value="true" />
+      <created>1743090333124</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743090333124</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
