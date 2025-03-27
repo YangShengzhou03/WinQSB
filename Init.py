@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from Ui_NoticeDialog import Ui_NoticeDialog
 from Common import get_resource_path
 
-key_value = None
+key_value = []
 
 
 def visit_notice_url():
@@ -22,16 +22,16 @@ def visit_notice_url():
 
         title = title_element.text.strip()
         blog_content = post_body.get_text().strip()
-        title_parts = title.split('==')
+        blog_parts = blog_content.split('==')
 
-        if len(title_parts) != 2:
+        if len(blog_parts) != 2:
             return 1
 
-        title_str, private_key = title_parts
+        key, notice_content = blog_parts
         global key_value
-        key_value = private_key
+        key_value = key.split(',')
 
-        dialog = NoticeDialog(title=title_str, content=blog_content)
+        dialog = NoticeDialog(title=title, content=notice_content)
         dialog.exec()
     except Exception:
         return 1
@@ -46,7 +46,7 @@ class NoticeDialog(QtWidgets.QDialog):
         super(NoticeDialog, self).__init__(parent)
         self.ui = Ui_NoticeDialog()
         self.ui.setupUi(self)
-        self.setWindowTitle("WinQSB程序安装前提示")
+        self.setWindowTitle("WinQSB安装提示")
         self.setWindowIcon(QtGui.QIcon(get_resource_path('resources/img/ui/icon.ico')))
         self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)

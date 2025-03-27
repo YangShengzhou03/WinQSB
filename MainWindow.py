@@ -186,7 +186,7 @@ QPushButton:pressed {
         QDesktopServices.openUrl(QUrl('https://blog.csdn.net/Yang_shengzhou/article/details/142312570'))
 
     def validate_activation(self):
-        global UUID
+        global UUID  # UUID是产生的随机数
         entered_key = self.lineEdit_code.text()
         self.uuid = UUID
 
@@ -203,8 +203,16 @@ QPushButton:pressed {
 
         version_info = key_versions.get(entered_key.upper())
 
-        if version_info is None and entered_key == Init.get_key():
-            version_info = ('1个月试用', 31)
+        if version_info is None:
+            list_key = Init.get_key()
+            if entered_key == list_key[0]:
+                version_info = ('1月试用', 31)
+            elif entered_key == list_key[1]:
+                version_info = ('6月专享', 180)
+            elif entered_key == list_key[2]:
+                version_info = ('包年畅享', 365)
+            elif entered_key in list_key:
+                version_info = ('永久尊享', None)
 
         if not version_info:
             QtWidgets.QMessageBox.warning(self, "无效秘钥", "秘钥有误！请输入正确的秘钥，如已购买请QQ扫获取")
@@ -219,7 +227,7 @@ QPushButton:pressed {
         QtWidgets.QMessageBox.information(
             self,
             "秘钥验证成功",
-            f"感谢您选择WinQSB {version_info[0]}，将于 {expire_date} 到期。"
+            f"感谢您安装64位WinQSB {version_info[0]}，有效期至 {expire_date}。"
         )
 
         self.close()
@@ -249,9 +257,9 @@ QPushButton:pressed {
             QtCore.Qt.WindowType.FramelessWindowHint
         )
         dialog.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-        dialog.setFixedSize(320, 450)
+        dialog.setFixedSize(420, 550)
         gradient_rect = QWidget(dialog)
-        gradient_rect.setFixedSize(300, 180)
+        gradient_rect.setFixedSize(360, 220)
         gradient_rect.setStyleSheet(load_stylesheet("Gradient_Rect.css"))
         inner_layout = QVBoxLayout(gradient_rect)
         inner_layout.setContentsMargins(10, 10, 10, 10)
@@ -273,7 +281,7 @@ QPushButton:pressed {
         text_label = QLabel("正在检查安装环境……", container)
         text_label.setFont(QFont("Microsoft YaHei", 12))
         text_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        text_label.setStyleSheet("background-color: transparent;")
+        text_label.setStyleSheet("background-color: transparent; color: black;")
 
         container_layout.addWidget(gif_label)
         container_layout.addWidget(text_label)
@@ -340,7 +348,7 @@ QPushButton:pressed {
         if app is None:
             app = QApplication(sys.argv)
         msg_box = QMessageBox()
-        welcome_text = ('<html><head/><body><p>当前电脑未安装微软运行库<a '
+        welcome_text = ('<html><head/><body><p>当前电脑缺少微软运行库<a '
                         'href="https://cca4666.lanzoul.com/ivJf52bdra3c">点击下载运行库</a></p>')
         date_info = '<p align="right">请安装运行库后再点击下方按钮，强行继续可能出错！</p></body></html>'
         msg_box.setWindowTitle('当前电脑缺少 VC++2022 运行库')
