@@ -31,10 +31,19 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
-     <number>9</number>
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>9</number>
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
     </property>
     <item>
      <widget class="QFrame" name="frame_Main">
@@ -78,8 +87,8 @@
           <widget class="QLabel" name="label_head_title">
            <property name="font">
             <font>
-             <family>微软雅黑 Light</family>
-             <pointsize>16</pointsize>
+             <family>微软雅黑</family>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -98,8 +107,9 @@
           <widget class="QLabel" name="label_identify">
            <property name="font">
             <font>
-             <family>微软雅黑 Light</family>
+             <family>微软雅黑</family>
              <pointsize>16</pointsize>
+             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -135,7 +145,7 @@
           <widget class="QPushButton" name="pushButton_exchange">
            <property name="font">
             <font>
-             <family>微软雅黑 Light</family>
+             <family>微软雅黑</family>
              <pointsize>10</pointsize>
             </font>
            </property>
@@ -162,7 +172,7 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>安装码兑换</string>
+            <string>安装码领取</string>
            </property>
            <property name="icon">
             <iconset>
@@ -269,6 +279,7 @@ border-radius:12px;
                  <font>
                   <family>微软雅黑</family>
                   <pointsize>11</pointsize>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -301,7 +312,7 @@ border-radius:12px;
                <widget class="QPushButton" name="pushButton_privilege">
                 <property name="font">
                  <font>
-                  <family>微软雅黑 Light</family>
+                  <family>微软雅黑</family>
                   <pointsize>10</pointsize>
                  </font>
                 </property>
@@ -360,13 +371,13 @@ border-bottom-left-radius:0px;
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>4</number>
+                <number>0</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>6</number>
+                <number>7</number>
                </property>
                <item>
                 <widget class="QPushButton" name="pushButton_A">
@@ -650,7 +661,7 @@ border-radius:4px;</string>
                 <widget class="QLabel" name="label_5">
                  <property name="font">
                   <font>
-                   <family>微软雅黑 Light</family>
+                   <family>微软雅黑</family>
                    <pointsize>10</pointsize>
                   </font>
                  </property>
@@ -667,7 +678,8 @@ color: rgb(135, 135, 135);</string>
                 <widget class="QLabel" name="label_prices">
                  <property name="font">
                   <font>
-                   <pointsize>12</pointsize>
+                   <family>微软雅黑</family>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -683,7 +695,8 @@ border:none;</string>
                 <widget class="QLabel" name="label_Yuan">
                  <property name="font">
                   <font>
-                   <pointsize>12</pointsize>
+                   <family>微软雅黑</family>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -799,7 +812,7 @@ background: transparent;
                      <widget class="QLabel" name="label_7">
                       <property name="font">
                        <font>
-                        <family>微软雅黑 Light</family>
+                        <family>微软雅黑</family>
                         <pointsize>12</pointsize>
                        </font>
                       </property>
@@ -821,6 +834,7 @@ background: transparent;
                       </property>
                       <property name="font">
                        <font>
+                        <family>微软雅黑</family>
                         <pointsize>12</pointsize>
                        </font>
                       </property>
@@ -851,6 +865,7 @@ border: 1px solid rgba(120, 120, 120, 150);</string>
                       </property>
                       <property name="font">
                        <font>
+                        <family>微软雅黑</family>
                         <pointsize>12</pointsize>
                        </font>
                       </property>
@@ -902,13 +917,13 @@ QPushButton:pressed {
                <widget class="QWidget" name="widget_bottom" native="true">
                 <property name="minimumSize">
                  <size>
-                  <width>650</width>
+                  <width>683</width>
                   <height>78</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>650</width>
+                  <width>683</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -987,27 +1002,13 @@ background: transparent;
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="label">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border:none;
-color: rgb(135, 135, 135);</string>
-                </property>
-                <property name="text">
-                 <string>实付价:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QLabel" name="label_2">
                 <property name="font">
                  <font>
+                  <family>微软雅黑</family>
                   <pointsize>18</pointsize>
-                  <bold>true</bold>
+                  <weight>50</weight>
+                  <bold>false</bold>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -1022,7 +1023,9 @@ color: rgb(135, 135, 135);</string>
                <widget class="QLabel" name="label_prices_2">
                 <property name="font">
                  <font>
-                  <pointsize>30</pointsize>
+                  <family>微软雅黑</family>
+                  <pointsize>28</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1120,7 +1123,7 @@ color: rgb(135, 135, 135);</string>
               <property name="font">
                <font>
                 <family>微软雅黑</family>
-                <pointsize>10</pointsize>
+                <pointsize>9</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1151,6 +1154,11 @@ color: rgb(135, 135, 135);</string>
                   <width>120</width>
                   <height>30</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                 </font>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
@@ -1202,7 +1210,7 @@ QPushButton:pressed {
              <widget class="QPushButton" name="pushButton_feedback">
               <property name="font">
                <font>
-                <family>微软雅黑 Light</family>
+                <family>微软雅黑</family>
                 <pointsize>10</pointsize>
                </font>
               </property>

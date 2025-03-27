@@ -1,7 +1,7 @@
 import sys
 
-from PyQt6 import QtWidgets, QtCore
-from PyQt6.QtWidgets import QApplication
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QApplication
 
 from MainWindow import MainWindow
 

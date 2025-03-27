@@ -7,11 +7,11 @@ import sys
 import time
 from datetime import datetime, timedelta
 
-from PyQt6 import QtCore, QtWidgets, QtGui
-from PyQt6.QtCore import Qt, QRegularExpression, QUrl
-from PyQt6.QtGui import QMovie, QFont, QRegularExpressionValidator, QDesktopServices
-from PyQt6.QtWidgets import QApplication, QMessageBox, QFrame, QHBoxLayout, QWidget
-from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
+from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import Qt, QRegularExpression, QUrl
+from PyQt5.QtGui import QMovie, QFont, QRegularExpressionValidator, QDesktopServices
+from PyQt5.QtWidgets import QApplication, QMessageBox, QFrame, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 import Init
 from CheckVCRuntimesThread import CheckVCRuntimesThread
@@ -300,13 +300,14 @@ QPushButton:pressed {
             sys.exit(0)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.MouseButton.LeftButton:
-            self.dragPos = event.globalPosition().toPoint()
+        if event.button() == QtCore.Qt.LeftButton:
+            self.dragPos = event.globalPos()
 
     def mouseMoveEvent(self, event):
-        if self.dragPos is not None and event.buttons() & QtCore.Qt.MouseButton.LeftButton:
-            self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
-            self.dragPos = event.globalPosition().toPoint()
+        if self.dragPos is not None and event.buttons() & QtCore.Qt.LeftButton:
+            newPos = self.pos() + event.globalPos() - self.dragPos
+            self.move(newPos)
+            self.dragPos = event.globalPos()
             event.accept()
 
     def mouseReleaseEvent(self, event):
