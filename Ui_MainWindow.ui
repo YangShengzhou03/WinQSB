@@ -109,7 +109,6 @@
             <font>
              <family>微软雅黑</family>
              <pointsize>16</pointsize>
-             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -279,7 +278,6 @@ border-radius:12px;
                  <font>
                   <family>微软雅黑</family>
                   <pointsize>11</pointsize>
-                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1007,7 +1005,6 @@ background: transparent;
                  <font>
                   <family>微软雅黑</family>
                   <pointsize>18</pointsize>
-                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1024,8 +1021,7 @@ background: transparent;
                 <property name="font">
                  <font>
                   <family>微软雅黑</family>
-                  <pointsize>28</pointsize>
-                  <weight>75</weight>
+                  <pointsize>30</pointsize>
                   <bold>true</bold>
                  </font>
                 </property>

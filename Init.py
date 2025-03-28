@@ -1,5 +1,5 @@
 import requests
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt6 import QtWidgets, QtCore, QtGui
 from bs4 import BeautifulSoup
 
 from Ui_NoticeDialog import Ui_NoticeDialog

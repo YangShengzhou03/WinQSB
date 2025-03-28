@@ -7,11 +7,11 @@ import sys
 import time
 from datetime import datetime, timedelta
 
-from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtCore import Qt, QRegularExpression, QUrl
-from PyQt5.QtGui import QMovie, QFont, QRegularExpressionValidator, QDesktopServices
-from PyQt5.QtWidgets import QApplication, QMessageBox, QFrame, QHBoxLayout, QWidget
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel
+from PyQt6 import QtCore, QtWidgets, QtGui
+from PyQt6.QtCore import Qt, QRegularExpression, QUrl
+from PyQt6.QtGui import QMovie, QFont, QRegularExpressionValidator, QDesktopServices
+from PyQt6.QtWidgets import QApplication, QMessageBox, QFrame, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 import Init
 from CheckVCRuntimesThread import CheckVCRuntimesThread
@@ -203,16 +203,19 @@ QPushButton:pressed {
 
         version_info = key_versions.get(entered_key.upper())
 
-        if version_info is None:
-            list_key = Init.get_key()
-            if entered_key == list_key[0]:
-                version_info = ('1月试用', 31)
-            elif entered_key == list_key[1]:
-                version_info = ('6月专享', 180)
-            elif entered_key == list_key[2]:
-                version_info = ('包年畅享', 365)
-            elif entered_key in list_key:
-                version_info = ('永久尊享', None)
+        try:
+            if version_info is None:
+                list_key = Init.get_key()
+                if entered_key == list_key[0]:
+                    version_info = ('1月试用', 31)
+                elif entered_key == list_key[1]:
+                    version_info = ('6月专享', 180)
+                elif entered_key == list_key[2]:
+                    version_info = ('包年畅享', 365)
+                elif entered_key in list_key:
+                    version_info = ('永久尊享', None)
+        except Exception as e:
+            version_info = None
 
         if not version_info:
             QtWidgets.QMessageBox.warning(self, "无效秘钥", "秘钥有误！请输入正确的秘钥，如已购买请QQ扫获取")
@@ -223,6 +226,7 @@ QPushButton:pressed {
             self.create_system_info_file(expire_date)
         else:
             expire_date = "永久"
+            self.remove_system_info_file()
 
         QtWidgets.QMessageBox.information(
             self,
@@ -232,6 +236,15 @@ QPushButton:pressed {
 
         self.close()
         self.wait_dialog()
+
+    def remove_system_info_file(self):
+        folder_path = r"C:\WINQSB\X64_YSZ_WinQSB2.0\essential_flies"
+        file_name = "system-info.ini"
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        file_path = os.path.join(folder_path, file_name)
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def create_system_info_file(self, expiry_time):
         folder_path = r"C:\WINQSB\X64_YSZ_WinQSB2.0\essential_flies"
@@ -308,14 +321,14 @@ QPushButton:pressed {
             sys.exit(0)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
-            self.dragPos = event.globalPos()
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.dragPos = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
+            event.accept()
 
     def mouseMoveEvent(self, event):
-        if self.dragPos is not None and event.buttons() & QtCore.Qt.LeftButton:
-            newPos = self.pos() + event.globalPos() - self.dragPos
+        if event.buttons() & Qt.MouseButton.LeftButton and self.dragPos is not None:
+            newPos = event.globalPosition().toPoint() - self.dragPos
             self.move(newPos)
-            self.dragPos = event.globalPos()
             event.accept()
 
     def mouseReleaseEvent(self, event):
@@ -340,7 +353,8 @@ QPushButton:pressed {
                 subprocess.run(['start', yszb_exe_path], shell=True, check=True)
             else:
                 raise FileNotFoundError(f"未能找到文件 {yszb_exe_path}。")
-        except Exception:
+        except Exception as e:
+            print(e)
             subprocess.run(['start', yszb_exe_path], shell=True, check=True)
 
     def show_vc_message(self):
