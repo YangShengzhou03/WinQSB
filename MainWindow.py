@@ -222,7 +222,7 @@ QPushButton:pressed {
             return
 
         if version_info[1] is not None:
-            expire_date = (datetime.now() + timedelta(days=version_info[1])).strftime("%Y-%m-%d")
+            expire_date = (datetime.now() + timedelta(days=float(version_info[1]))).strftime("%Y-%m-%d")
             self.create_system_info_file(expire_date)
         else:
             expire_date = "永久"
