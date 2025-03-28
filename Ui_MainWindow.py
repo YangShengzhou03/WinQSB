@@ -450,6 +450,7 @@ f"image: url({get_resource_path('resources/img/ui/head.png')});\n"
         self.Code_redemption_2.addWidget(self.label_7)
         self.lineEdit_code = QtWidgets.QLineEdit(parent=self.Code_redemption)
         self.lineEdit_code.setMinimumSize(QtCore.QSize(0, 38))
+        self.lineEdit_code.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
         font.setPointSize(12)
