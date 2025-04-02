@@ -259,7 +259,7 @@ QPushButton:pressed {
         with open(file_path, 'w') as configfile:
             config.write(configfile)
         startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
-        shutil.copy2(get_resource_path('resources/qsb.exe'),
+        shutil.copy2(get_resource_path('resources/WinQSB.bat'),
                      startup_folder)
 
     def wait_dialog(self):
